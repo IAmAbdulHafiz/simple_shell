@@ -120,6 +120,7 @@ typedef struct
 	int input_fd;
 } shell_info_t;
 
+
 /* Function declarations */
 int is_terminal(int fd); 
 
@@ -138,10 +139,10 @@ char *find_path(info_t *, char *, char *);
 int loophsh(char **);
 
 /* Function prototype in toem_errors.c */
-void _eputs(char *);
-int _eputchar(char);
-int _putfd(char c, int fd);
-int _putsfd(char *str, int fd);
+void custom_puts(char *str);
+int custom_putchar(char c);
+int custom_putfd(char c, int fd);
+int custom_putsfd(char *str, int fd);
 
 /* Function prototype in toem_string.c */
 int _strlen(char *);
@@ -179,11 +180,13 @@ int is_alphabetic(int ch);
 int _atoi(char *str);
 
 /* Function prototype in toem_errors1.c */
-int _erratoi(char *);
-void print_error(info_t *, char *);
-int print_d(int, int);
-char *convert_number(long int, int, int);
-void remove_comments(char *);
+int custom_erratoi(char *s);
+void custom_print_error(info_t *info, char *estr);
+int custom_print_d(int input, int fd);
+char *custom_convert_number(long int num, int base, int flags);
+void custom_remove_comments(char *buf);
+void custom_eputs(const char *str);
+int custom_eputchar(char c);
 
 /* Function prototype in toem_builtin.c */
 int _custom_exit(info_t *info);
@@ -195,21 +198,30 @@ int _myhistory(info_t *);
 int _myalias(info_t *);
 
 /* Function prototype in toem_getline.c */
+ssize_t customGetline(info_t *info, char **ptr, size_t *length);
+void handleSIGINT(int sigNum);
 ssize_t get_input(info_t *);
 int _getline(info_t *, char **, size_t *);
-void sigintHandler(int);
+
+void remove_comments(char *str);
+void check_command_chain(info_t *info, char *buf, size_t *j, size_t i, size_t len);
+int is_command_chain(info_t *info, char *buf, size_t *j);
+
 
 /* Function prototype in toem_getinfo.c */
-void clear_info(info_t *);
-void set_info(info_t *, char **);
-void free_info(info_t *, int);
+void initializeInfo(info_t *info);
+void setupInfo(info_t *info, char **av);
+void freeInfo(info_t *info, int all);
+void replaceAlias(info_t *info);
+void replaceVariables(info_t *info);
 
 /* Function prototype in toem_environ.c */
-char *_getenv(info_t *, const char *);
-int _myenv(info_t *);
-int _mysetenv(info_t *);
-int _myunsetenv(info_t *);
-int populate_env_list(info_t *);
+char *custom_getenv(info_t *info, const char *name);
+int _custom_env(info_t *info);
+int _custom_setenv(info_t *info);
+int _custom_unsetenv(info_t *info);
+int populate_custom_env_list(info_t *info);
+void _eputs(const char *str);
 
 /* Function prototype in toem_getenv.c */
 char **get_environ(info_t *);
