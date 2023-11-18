@@ -12,16 +12,16 @@ int _custom_exit(info_t *info)
 
 	if (info->argv[1])
 	{
-		exit_code = _erratoi(info->argv[1]);
+		exit_code = _atoi(info->argv[1]);
 		if (exit_code == -1)
 		{
 			info->status = 2;
 			print_error(info, "Illegal number: ");
 			_eputs(info->argv[1]);
-			_eputchar('\n');
+			_putchar('\n');
 			return (1);
 		}
-		info->err_num = _erratoi(info->argv[1]);
+		info->err_num = _atoi(info->argv[1]);
 		return (-2);
 	}
 	info->err_num = -1;
@@ -46,9 +46,9 @@ int _custom_cd(info_t *info)
 
 	if (!info->argv[1])
 	{
-		target_dir = _getenv(info, "HOME=");
+		target_dir = _setenv(info, "HOME=");
 		if (!target_dir)
-			chdir_result = chdir((target_dir = _getenv(info, "PWD=")) ? target_dir : "/");
+			chdir_result = chdir((target_dir = _setenv(info, "PWD=")) ? target_dir : "/");
 		else
 			chdir_result = chdir(target_dir);
 	}
@@ -69,7 +69,7 @@ int _custom_cd(info_t *info)
 	if (chdir_result == -1)
 	{
 		print_error(info, "can't cd to ");
-		_eputs(info->argv[1]), _eputchar('\n');
+		_eputs(info->argv[1]), _putchar('\n');
 	}
 	else
 	{

@@ -39,13 +39,14 @@ int isExecutable(info_t *infoStruct, char *filePath) {
  * @return: A newly allocated buffer containing the duplicated characters.
  */
 char *duplicateCharacters(char *sourceString, int startIndex, int stopIndex) {
+	int bufferIndex;
     char *buffer = malloc(MAX_PATH_LENGTH);
+
     if (!buffer) {
-        // Handle memory allocation failure
         return NULL;
     }
 
-    int bufferIndex = 0;
+    bufferIndex = 0;
     for (int i = startIndex; i < stopIndex; i++) {
         if (sourceString[i] != ':') {
             buffer[bufferIndex++] = sourceString[i];

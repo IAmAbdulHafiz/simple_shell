@@ -80,15 +80,15 @@ void custom_puts(char *str)
 int custom_putchar(char c)
 {
     static int index;
-    static char buffer[WRITE_BUFFER_SIZE];
+    static char buffer[WRITE_BUF_SIZE];
 
-    if (c == BUFFER_FLUSH || index >= WRITE_BUFFER_SIZE)
+    if (c == BUF_FLUSH || index >= WRITE_BUF_SIZE)
     {
         write(1, buffer, index);
         index = 0;
     }
 
-    if (c != BUFFER_FLUSH)
+    if (c != BUF_FLUSH)
         buffer[index++] = c;
 
     return 1;

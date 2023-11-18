@@ -14,14 +14,14 @@ int main_shell_loop(info_t *shell_info, char **args)
 
 	while (read_result != -1 && builtin_result != -2)
 	{
-		clear_info(shell_info);
+		clearenv(shell_info);
 		if (interactive(shell_info))
 			_puts("$ ");
-		_eputchar(BUF_FLUSH);
+		_putchar(BUF_FLUSH);
 		read_result = get_input(shell_info);
 		if (read_result != -1)
 		{
-			set_info(shell_info, args);
+			setupInfo(nfo(shell_info, args)
 			builtin_result = find_builtin(shell_info);
 			if (builtin_result == -1)
 				find_cmd(shell_info);
@@ -56,13 +56,13 @@ int find_builtin(info_t *shell_info)
 {
 	int i, builtin_ret = -1;
 	builtin_table builtintbl[] = {
-		{"exit", _myexit},
-		{"env", _myenv},
-		{"help", _myhelp},
+		{"exit", _exit},
+		{"env", _setenv},
+		{"help", _help},
 		{"history", _myhistory},
-		{"setenv", _mysetenv},
-		{"unsetenv", _myunsetenv},
-		{"cd", _mycd},
+		{"setenv", _setenv},
+		{"unsetenv", _unsetenv},
+		{"cd", _cd},
 		{"alias", _myalias},
 		{NULL, NULL}
 	};
@@ -101,7 +101,7 @@ void find_command(info_t *shell_info)
 		return;
 
 	path = find_command(shell_info,
-			_getenv(shell_info, "PATH="),
+			_setenv(shell_info, "PATH="),
 			shell_info->argv[0]);
 	if (path)
 	{
@@ -111,7 +111,7 @@ void find_command(info_t *shell_info)
 	else
 	{
 		if ((interactive_mode(shell_info) ||
-					_getenv(shell_info, "PATH=") ||
+					_setenv(shell_info, "PATH=") ||
 					shell_info->argv[0][0] == '/') &&
 				find_command(shell_info, shell_info->argv[0]))
 			fork_exec_command(shell_info);

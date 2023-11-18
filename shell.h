@@ -206,6 +206,9 @@ int _getline(info_t *, char **, size_t *);
 void remove_comments(char *str);
 void check_command_chain(info_t *info, char *buf, size_t *j, size_t i, size_t len);
 int is_command_chain(info_t *info, char *buf, size_t *j);
+void removeComments(char *buf);
+void buildHistoryList(info_t *info, char *buf, int histcount);
+
 
 
 /* Function prototype in toem_getinfo.c */

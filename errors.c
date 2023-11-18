@@ -8,15 +8,15 @@
  */
 void custom_puts(char *str)
 {
-    int i = 0;
+	int i = 0;
 
-    if (!str)
-        return;
-    while (str[i] != '\0')
-    {
-        custom_putchar(str[i]);
-        i++;
-    }
+	if (!str)
+		return ();
+	while (str[i] != '\0')
+	{
+		custom_putchar(str[i]);
+		i++;
+	}
 }
 
 /**
@@ -28,17 +28,17 @@ void custom_puts(char *str)
  */
 int custom_putchar(char c)
 {
-    static int i;
-    static char buf[WRITE_BUF_SIZE];
+	static int i;
+	static char buf[WRITE_BUF_SIZE];
 
-    if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
-    {
-        write(2, buf, i);
-        i = 0;
-    }
-    if (c != BUF_FLUSH)
-        buf[i++] = c;
-    return 1;
+	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
+	{
+		write(2, buf, i);
+		i = 0;
+	}
+	if (c != BUF_FLUSH)
+		buf[i++] = c;
+	return (1);
 }
 
 /**
@@ -51,17 +51,17 @@ int custom_putchar(char c)
  */
 int custom_putfd(char c, int fd)
 {
-    static int i;
-    static char buf[WRITE_BUF_SIZE];
+	static int i;
+	static char buf[WRITE_BUF_SIZE];
 
-    if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
-    {
-        write(fd, buf, i);
-        i = 0;
-    }
-    if (c != BUF_FLUSH)
-        buf[i++] = c;
-    return 1;
+	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
+	{
+		write(fd, buf, i);
+		i = 0;
+	}
+	if (c != BUF_FLUSH)
+		buf[i++] = c;
+	return (1);
 }
 
 /**
@@ -73,13 +73,13 @@ int custom_putfd(char c, int fd)
  */
 int custom_putsfd(char *str, int fd)
 {
-    int i = 0;
+	int i = 0;
 
-    if (!str)
-        return 0;
-    while (*str)
-    {
-        i += custom_putfd(*str++, fd);
-    }
-    return i;
+	if (!str)
+		return (0);
+	while (*str)
+	{
+		i += custom_putfd(*str++, fd);
+	}
+	return (i);
 }
