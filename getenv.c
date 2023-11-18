@@ -15,7 +15,7 @@ char **get_environ(info_t *info)
 		info->env_changed = 0;
 	}
 
-	return info->environ;
+	return (info->environ);
 }
 
 /**
@@ -33,7 +33,7 @@ int _unsetenv(info_t *info, char *var)
 	char *p;
 
 	if (!node || !var)
-		return 0;
+		return (0);
 
 	while (node)
 	{
@@ -48,11 +48,12 @@ int _unsetenv(info_t *info, char *var)
 		node = node->next;
 		index++;
 	}
-	return info->env_changed;
+	return (info->env_changed);
 }
 
 /**
- * _setenv - Initializes a new environment variable or modifies an existing one.
+ * _setenv - Initializes a new environment variable or modifies an
+ * existing one.
  * @info: Structure containing potential arguments. Used to maintain
  *        a constant function prototype.
  * @var: The string env var property.
@@ -67,11 +68,11 @@ int _setenv(info_t *info, char *var, char *value)
 	char *p;
 
 	if (!var || !value)
-		return 0;
+		return (0);
 
 	buf = malloc(_strlen(var) + _strlen(value) + 2);
 	if (!buf)
-		return 1;
+		return (1);
 	_strcpy(buf, var);
 	_strcat(buf, "=");
 	_strcat(buf, value);
@@ -84,12 +85,12 @@ int _setenv(info_t *info, char *var, char *value)
 			free(node->str);
 			node->str = buf;
 			info->env_changed = 1;
-			return 0;
+			return (0);
 		}
 		node = node->next;
 	}
 	add_node_end(&(info->env), buf, 0);
 	free(buf);
 	info->env_changed = 1;
-	return 0;
+	return (0);
 }
