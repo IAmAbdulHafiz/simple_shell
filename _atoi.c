@@ -9,7 +9,7 @@
 
 int inter_m(info_t *shell_info)
 {
-	return (is_terminal(STDIN_FILENO) && shell_info->input_fd <= 2);
+	return (isatty(STDIN_FILENO) && shell_info->input_fd <= 2);
 }
 
 /**
