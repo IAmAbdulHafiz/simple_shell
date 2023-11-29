@@ -37,7 +37,7 @@
 extern char **environ;
 
 /**
- * A structure representing a singly linked list.
+ * struct liststr - A structure representing a singly linked list.
  * @num: The number field
  * @str: A string
  * @next: Points to the next node
@@ -51,7 +51,8 @@ typedef struct liststr
 } list_t;
 
 /**
- * A structure containing pseudo-arguments to pass into a function,
+ * struct passinfo - A structure containing pseudo-arguments to
+ * pass into a function,
  * allowing a uniform prototype for the function pointer struct.
  * @arg: a string generated from getline containing arguments
  * @argv: an array of strings generated from arg
@@ -100,7 +101,8 @@ typedef struct passinfo
 0, 0, 0}
 
 /**
- * A structure containing a builtin string and related function.
+ * struct builtin - A structure containing a builtin string and
+ * related function.
  * @type: the builtin command flag
  * @func: the function
  */
@@ -111,8 +113,6 @@ typedef struct builtin
 	int (*func)(info_t *);
 } builtin_table;
 
-/* Function declarations */
-int is_terminal(int fd); 
 
 /* Function prototype in toem_shloop.c */
 int main_shell_loop(info_t *, char **);
